@@ -1,0 +1,19 @@
+{
+  "name": "blendhtml1/assets",
+  "autoload": {
+    "psr-4": {
+      "BlendHtml\\Assets\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Philipp Nikolajev",
+      "email": "it-consulting@nikolajev.ee",
+      "homepage": "https://nikolajev.ee",
+      "role": "Developer"
+    }
+  ],
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

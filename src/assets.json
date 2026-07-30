@@ -1,0 +1,103 @@
+{
+  "fontAwesome": {
+    "defaultVersion": "6.6.0",
+    "versions": {
+      "6.6.0": {
+        "css": [
+          "third-party/cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        ]
+      }
+    }
+  },
+
+  "alpine": {
+    "defaultVersion": "3.14.0",
+    "versions": {
+      "3.14.0": {
+        "js": [
+          "third-party/cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"
+        ]
+      }
+    }
+  },
+
+  "htmx": {
+    "defaultVersion": "2.0.4",
+    "versions": {
+      "2.0.4": {
+        "js": [
+          "third-party/unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"
+        ]
+      }
+    }
+  },
+
+  "eruda": {
+    "defaultVersion": "3.4.1",
+    "versions": {
+      "3.4.1": {
+        "js": [
+          "third-party/cdn.jsdelivr.net/npm/eruda/3.4.1/index.min.js"
+        ],
+        "extra": [
+          "<script>eruda.init();</script>"
+        ]
+      }
+    }
+  },
+
+  "reveal": {
+    "defaultVersion": "v1",
+    "versions": {
+      "v1": {
+        "js": [
+          "bhtml/js/reveal/v1/index.js"
+        ]
+      }
+    }
+  },
+
+  "parallax": {
+    "defaultVersion": "v1",
+    "versions": {
+      "v1": {
+        "js": [
+          "bhtml/js/parallax/v1/index.js"
+        ]
+      }
+    }
+  },
+
+  "lazyImage": {
+    "defaultVersion": "v1",
+    "versions": {
+      "v1": {
+        "js": [
+          "bhtml/js/lazy-image/v1/index.js"
+        ]
+      }
+    }
+  },
+
+  "smoothScroll": {
+    "defaultVersion": "v1",
+    "versions": {
+      "v1": {
+        "js": [
+          "bhtml/js/smooth-scroll/v1/index.js"
+        ]
+      }
+    }
+  },
+
+  "backToTop": {
+    "defaultVersion": "v1",
+    "versions": {
+      "v1": {
+        "js": [
+          "bhtml/js/back-to-top/v1/index.js"
+        ]
+      }
+    }
+  }
+}
