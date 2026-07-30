@@ -1,5 +1,5 @@
 {
-  "name": "blendhtml1/assets",
+  "name": "blendhtml/assets",
   "autoload": {
     "psr-4": {
       "BlendHtml\\Assets\\": "src/"
