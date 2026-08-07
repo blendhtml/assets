@@ -99,5 +99,16 @@
         ]
       }
     }
+  },
+
+  "modal": {
+    "defaultVersion": "v1",
+    "versions": {
+      "v1": {
+        "js": [
+          "bhtml/js/modal/v1/index.js"
+        ]
+      }
+    }
   }
 }
