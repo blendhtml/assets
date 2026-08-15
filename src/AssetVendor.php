@@ -1,8 +1,8 @@
 <?php
 
-namespace BlendHtml\Assets;
+namespace Blendhtml\Assets;
 
-use BlendHtml\Core\Context;
+use Blendhtml\Core\Context;
 
 class AssetVendor
 {

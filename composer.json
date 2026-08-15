@@ -2,7 +2,7 @@
   "name": "blendhtml/assets",
   "autoload": {
     "psr-4": {
-      "BlendHtml\\Assets\\": "src/"
+      "Blendhtml\\Assets\\": "src/"
     }
   },
   "authors": [

@@ -2,6 +2,8 @@
     class ModalManager {
         constructor() {
             this.overlay = document.querySelector("[data-modal-overlay]");
+
+            this.modalStack = [];
             this.activeModal = null;
 
             this.hidden = {
@@ -38,7 +40,11 @@
                 }
 
                 if (this.overlay && e.target === this.overlay) {
-                    this.close();
+                    if (this.activeModal?.dataset.modalCloseOverlay !== "false") {
+                        this.close();
+                    }
+
+                    return;
                 }
 
             });
@@ -52,51 +58,84 @@
 
         open(name) {
             const modal = document.querySelector(`[data-modal="${name}"]`);
-            if (!modal) return;
 
-            if (this.activeModal && this.activeModal !== modal) {
-                this.close();
+            if (!modal) {
+                return;
             }
 
             const type = modal.dataset.modalType;
+
             if (!this.hidden[type] || !this.visible[type]) {
                 console.warn(`Unknown modal type "${type}"`);
                 return;
             }
 
+            // Already active.
+            if (this.activeModal === modal) {
+                return;
+            }
+
+            // Already somewhere in the stack.
+            const existingIndex = this.modalStack.indexOf(modal);
+
+            if (existingIndex !== -1) {
+                this.modalStack.splice(existingIndex, 1);
+            }
+
+            this.modalStack.push(modal);
+
             modal.classList.remove(...this.hidden[type]);
             modal.classList.add(...this.visible[type]);
+
+            // Make the newest modal the top layer.
+            modal.style.zIndex = String(50 + this.modalStack.length);
+
+            this.activeModal = modal;
 
             if (this.overlay) {
                 this.overlay.classList.remove("opacity-0", "invisible");
             }
 
             document.body.classList.add("overflow-hidden");
-
-            this.activeModal = modal;
         }
 
-        close() {
-            if (!this.activeModal) return;
+        close(name = null) {
+            const modal = name
+                ? document.querySelector(`[data-modal="${name}"]`)
+                : this.activeModal;
 
-            const type = this.activeModal.dataset.modalType;
+            if (!modal) return;
 
-            this.activeModal.classList.remove(...this.visible[type]);
-            this.activeModal.classList.add(...this.hidden[type]);
+            const type = modal.dataset.modalType;
 
-            if (this.overlay) {
-                this.overlay.classList.add("opacity-0", "invisible");
+            if (!this.hidden[type] || !this.visible[type]) {
+                return;
             }
 
-            document.body.classList.remove("overflow-hidden");
+            modal.classList.remove(...this.visible[type]);
+            modal.classList.add(...this.hidden[type]);
 
-            this.activeModal = null;
+            if (modal === this.activeModal) {
+                if (this.overlay) {
+                    this.overlay.classList.add("opacity-0", "invisible");
+                }
+
+                document.body.classList.remove("overflow-hidden");
+                this.activeModal = null;
+            }
         }
     }
 
     function init() {
         if (window.__modalManager) return;
+
         window.__modalManager = new ModalManager();
+
+        const initiallyOpen = window.BLENDHTML_MODAL_V1?.initiallyOpen;
+
+        if (initiallyOpen) {
+            window.__modalManager.open(initiallyOpen);
+        }
     }
 
     if (document.readyState === "loading") {

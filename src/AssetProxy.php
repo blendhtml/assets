@@ -1,6 +1,6 @@
 <?php
 
-namespace BlendHtml\Assets;
+namespace Blendhtml\Assets;
 
 final class AssetProxy
 {

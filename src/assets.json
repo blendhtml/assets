@@ -110,5 +110,16 @@
         ]
       }
     }
+  },
+
+  "visitMetrics": {
+    "defaultVersion": "v1",
+    "versions": {
+      "v1": {
+        "js": [
+          "bhtml/js/visit-metrics/v1/index.js"
+        ]
+      }
+    }
   }
 }
