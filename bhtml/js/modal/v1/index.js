@@ -112,18 +112,40 @@
                 return;
             }
 
+            // Hide the modal.
             modal.classList.remove(...this.visible[type]);
             modal.classList.add(...this.hidden[type]);
 
-            if (modal === this.activeModal) {
+            // Remove it from the stack.
+            const index = this.modalStack.indexOf(modal);
+
+            if (index !== -1) {
+                this.modalStack.splice(index, 1);
+            }
+
+            // The next modal in the stack becomes active.
+            this.activeModal =
+                this.modalStack[this.modalStack.length - 1] ?? null;
+
+            if (this.activeModal) {
+                // Something is still open.
                 if (this.overlay) {
-                    this.overlay.classList.add("opacity-0", "invisible");
+                    this.overlay.classList.remove("opacity-0", "invisible");
                 }
 
-                document.body.classList.remove("overflow-hidden");
-                this.activeModal = null;
+                document.body.classList.add("overflow-hidden");
+
+                return;
             }
+
+            // Nothing remains open.
+            if (this.overlay) {
+                this.overlay.classList.add("opacity-0", "invisible");
+            }
+
+            document.body.classList.remove("overflow-hidden");
         }
+
     }
 
     function init() {
