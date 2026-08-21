@@ -27,7 +27,7 @@ const visitMetrics = (() => {
             }),
 
             scrollTo: Object.freeze({
-                'main > section': 'Section viewed',
+                'section': 'Section viewed',
                 'footer': 'Scrolled to footer'
             }),
 
