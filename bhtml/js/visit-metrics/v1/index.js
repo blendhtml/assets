@@ -150,23 +150,35 @@ const visitMetrics = (() => {
                     heartbeatDelay
                 };
 
-                const scrollTo = this._normalizeScrollTo({
-                    ...DEFAULTS.track.scrollTo,
-                    ...(trackConfig.scrollTo &&
-                    typeof trackConfig.scrollTo === 'object' &&
-                    !Array.isArray(trackConfig.scrollTo)
-                        ? trackConfig.scrollTo
-                        : {})
-                });
+                let scrollTo;
 
-                const click = this._normalizeClicks({
-                    ...DEFAULTS.track.click,
-                    ...(trackConfig.click &&
-                    typeof trackConfig.click === 'object' &&
-                    !Array.isArray(trackConfig.click)
-                        ? trackConfig.click
-                        : {})
-                });
+                if (this._isObject(trackConfig['!scrollTo'])) {
+                    scrollTo = trackConfig['!scrollTo'];
+                } else {
+                    scrollTo = {
+                        ...DEFAULTS.track.scrollTo,
+                        ...(this._isObject(trackConfig.scrollTo)
+                            ? trackConfig.scrollTo
+                            : {})
+                    };
+                }
+
+                scrollTo = this._normalizeScrollTo(scrollTo);
+
+                let click;
+
+                if (this._isObject(trackConfig['!click'])) {
+                    click = trackConfig['!click'];
+                } else {
+                    click = {
+                        ...DEFAULTS.track.click,
+                        ...(this._isObject(trackConfig.click)
+                            ? trackConfig.click
+                            : {})
+                    };
+                }
+
+                click = this._normalizeClicks(click);
 
                 this._config = {
                     apiBase,
@@ -391,6 +403,12 @@ const visitMetrics = (() => {
             return value === 'include' || value === 'omit' || value === 'same-origin'
                 ? value
                 : fallback;
+        },
+
+        _isObject(value) {
+            return value &&
+                typeof value === 'object' &&
+                !Array.isArray(value);
         },
 
         _normalizeApiBase(value, fallback, debug) {
@@ -1919,7 +1937,7 @@ const visitMetrics = (() => {
                 state.cleanup = null;
             }
         },
-        
+
         _deactivateScrollTrackers() {
             for (const tracker of this._scrollTrackers.values()) {
                 if (!tracker.elements) {
